@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <context id="MySQLTables" targetRuntime="MyBatis3">
+        <!--覆盖生成XML文件-->
+        <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin"/>
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://127.0.0.1:3306/springboot_demo?useUnicode=true&amp;characterEncoding=utf8&amp;zeroDateTimeBehavior=convertToNull"
+                        userId="root"
+                        password="root">
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+        <!-- 实体类-->
+        <javaModelGenerator targetPackage="com.example.hotel_booking.common.domain" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+        <!--Mapper 映射文件-->
+        <sqlMapGenerator targetPackage="mybatis.mapper" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+        <!--Dao 接口-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.example.hotel_booking.mapper"
+                             targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+
+        <table tableName="Admin" domainObjectName="Admin"/>
+        <table tableName="Book" domainObjectName="Book"/>
+
+        <!--  <table schema="DB2ADMIN" tableName="ALLTYPES" domainObjectName="Customer" >
+              <property name="useActualColumnNames" value="true"/>
+              <generatedKey column="ID" sqlStatement="DB2" identity="true" />
+              <columnOverride column="DATE_FIELD" property="startDate" />
+              <ignoreColumn column="FRED" />
+              <columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR" />
+          </table>-->
+
+    </context>
+</generatorConfiguration>

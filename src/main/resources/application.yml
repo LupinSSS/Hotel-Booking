@@ -1,0 +1,16 @@
+# 数据库连接设置
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/springboot_demo?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
+    username: root
+    password: root
+
+
+# Mybatis 配置
+mybatis:
+  mapper-locations: classpath:/mybatis/mapper/*.xml
+
+logging:
+  level:
+    com.example.hotel_booking.mapper: debug
