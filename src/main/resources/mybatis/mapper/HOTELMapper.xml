@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.hotel_booking.mapper.HOTELMapper">
+  <resultMap id="BaseResultMap" type="com.example.hotel_booking.common.domain.Hotel">
+    <id column="hid" jdbcType="VARCHAR" property="hid" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="translated_name" jdbcType="VARCHAR" property="translatedName" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="state" jdbcType="VARCHAR" property="state" />
+    <result column="country" jdbcType="VARCHAR" property="country" />
+    <result column="star_rating" jdbcType="DECIMAL" property="starRating" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="overview" jdbcType="VARCHAR" property="overview" />
+    <result column="rating_average" jdbcType="DECIMAL" property="ratingAverage" />
+    <result column="checkin" jdbcType="TIME" property="checkin" />
+    <result column="checkout" jdbcType="TIME" property="checkout" />
+    <result column="photo1" jdbcType="VARCHAR" property="photo1" />
+    <result column="photo2" jdbcType="VARCHAR" property="photo2" />
+    <result column="photo3" jdbcType="VARCHAR" property="photo3" />
+    <result column="photo4" jdbcType="VARCHAR" property="photo4" />
+    <result column="photo5" jdbcType="VARCHAR" property="photo5" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    hid, name, password, translated_name, address, city, state, country, star_rating, 
+    url, overview, rating_average, checkin, checkout, photo1, photo2, photo3, photo4, 
+    photo5
+  </sql>
+  <select id="selectByExample" parameterType="com.example.hotel_booking.common.domain.HotelExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from hotel
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from hotel
+    where hid = #{hid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from hotel
+    where hid = #{hid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.example.hotel_booking.common.domain.HotelExample">
+    delete from hotel
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.example.hotel_booking.common.domain.Hotel">
+    insert into hotel (hid, name, password, 
+      translated_name, address, city, 
+      state, country, star_rating, 
+      url, overview, rating_average, 
+      checkin, checkout, photo1, 
+      photo2, photo3, photo4, 
+      photo5)
+    values (#{hid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{translatedName,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
+      #{state,jdbcType=VARCHAR}, #{country,jdbcType=VARCHAR}, #{starRating,jdbcType=DECIMAL}, 
+      #{url,jdbcType=VARCHAR}, #{overview,jdbcType=VARCHAR}, #{ratingAverage,jdbcType=DECIMAL}, 
+      #{checkin,jdbcType=TIME}, #{checkout,jdbcType=TIME}, #{photo1,jdbcType=VARCHAR}, 
+      #{photo2,jdbcType=VARCHAR}, #{photo3,jdbcType=VARCHAR}, #{photo4,jdbcType=VARCHAR}, 
+      #{photo5,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.hotel_booking.common.domain.Hotel">
+    insert into hotel
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="hid != null">
+        hid,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="translatedName != null">
+        translated_name,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="city != null">
+        city,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="country != null">
+        country,
+      </if>
+      <if test="starRating != null">
+        star_rating,
+      </if>
+      <if test="url != null">
+        url,
+      </if>
+      <if test="overview != null">
+        overview,
+      </if>
+      <if test="ratingAverage != null">
+        rating_average,
+      </if>
+      <if test="checkin != null">
+        checkin,
+      </if>
+      <if test="checkout != null">
+        checkout,
+      </if>
+      <if test="photo1 != null">
+        photo1,
+      </if>
+      <if test="photo2 != null">
+        photo2,
+      </if>
+      <if test="photo3 != null">
+        photo3,
+      </if>
+      <if test="photo4 != null">
+        photo4,
+      </if>
+      <if test="photo5 != null">
+        photo5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="hid != null">
+        #{hid,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="translatedName != null">
+        #{translatedName,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null">
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="starRating != null">
+        #{starRating,jdbcType=DECIMAL},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="overview != null">
+        #{overview,jdbcType=VARCHAR},
+      </if>
+      <if test="ratingAverage != null">
+        #{ratingAverage,jdbcType=DECIMAL},
+      </if>
+      <if test="checkin != null">
+        #{checkin,jdbcType=TIME},
+      </if>
+      <if test="checkout != null">
+        #{checkout,jdbcType=TIME},
+      </if>
+      <if test="photo1 != null">
+        #{photo1,jdbcType=VARCHAR},
+      </if>
+      <if test="photo2 != null">
+        #{photo2,jdbcType=VARCHAR},
+      </if>
+      <if test="photo3 != null">
+        #{photo3,jdbcType=VARCHAR},
+      </if>
+      <if test="photo4 != null">
+        #{photo4,jdbcType=VARCHAR},
+      </if>
+      <if test="photo5 != null">
+        #{photo5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.hotel_booking.common.domain.HotelExample" resultType="java.lang.Long">
+    select count(*) from hotel
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update hotel
+    <set>
+      <if test="record.hid != null">
+        hid = #{record.hid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null">
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.translatedName != null">
+        translated_name = #{record.translatedName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null">
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.city != null">
+        city = #{record.city,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null">
+        state = #{record.state,jdbcType=VARCHAR},
+      </if>
+      <if test="record.country != null">
+        country = #{record.country,jdbcType=VARCHAR},
+      </if>
+      <if test="record.starRating != null">
+        star_rating = #{record.starRating,jdbcType=DECIMAL},
+      </if>
+      <if test="record.url != null">
+        url = #{record.url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.overview != null">
+        overview = #{record.overview,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ratingAverage != null">
+        rating_average = #{record.ratingAverage,jdbcType=DECIMAL},
+      </if>
+      <if test="record.checkin != null">
+        checkin = #{record.checkin,jdbcType=TIME},
+      </if>
+      <if test="record.checkout != null">
+        checkout = #{record.checkout,jdbcType=TIME},
+      </if>
+      <if test="record.photo1 != null">
+        photo1 = #{record.photo1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.photo2 != null">
+        photo2 = #{record.photo2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.photo3 != null">
+        photo3 = #{record.photo3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.photo4 != null">
+        photo4 = #{record.photo4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.photo5 != null">
+        photo5 = #{record.photo5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update hotel
+    set hid = #{record.hid,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      translated_name = #{record.translatedName,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      city = #{record.city,jdbcType=VARCHAR},
+      state = #{record.state,jdbcType=VARCHAR},
+      country = #{record.country,jdbcType=VARCHAR},
+      star_rating = #{record.starRating,jdbcType=DECIMAL},
+      url = #{record.url,jdbcType=VARCHAR},
+      overview = #{record.overview,jdbcType=VARCHAR},
+      rating_average = #{record.ratingAverage,jdbcType=DECIMAL},
+      checkin = #{record.checkin,jdbcType=TIME},
+      checkout = #{record.checkout,jdbcType=TIME},
+      photo1 = #{record.photo1,jdbcType=VARCHAR},
+      photo2 = #{record.photo2,jdbcType=VARCHAR},
+      photo3 = #{record.photo3,jdbcType=VARCHAR},
+      photo4 = #{record.photo4,jdbcType=VARCHAR},
+      photo5 = #{record.photo5,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.hotel_booking.common.domain.Hotel">
+    update hotel
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      //密码不在这里修改
+      </if>
+      <if test="translatedName != null">
+        translated_name = #{translatedName,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null">
+        country = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="starRating != null">
+        star_rating = #{starRating,jdbcType=DECIMAL},
+      </if>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="overview != null">
+        overview = #{overview,jdbcType=VARCHAR},
+      </if>
+      <if test="ratingAverage != null">
+        rating_average = #{ratingAverage,jdbcType=DECIMAL},
+      <!--
+      </if>
+      <if test="checkin != null">
+        checkin = #{checkin,jdbcType=TIME},
+      </if>
+      <if test="checkout != null">
+        checkout = #{checkout,jdbcType=TIME},
+        -->
+      </if>
+      <if test="photo1 != null">
+        photo1 = #{photo1,jdbcType=VARCHAR},
+      </if>
+      <if test="photo2 != null">
+        photo2 = #{photo2,jdbcType=VARCHAR},
+      </if>
+      <if test="photo3 != null">
+        photo3 = #{photo3,jdbcType=VARCHAR},
+      </if>
+      <if test="photo4 != null">
+        photo4 = #{photo4,jdbcType=VARCHAR},
+      </if>
+      <if test="photo5 != null">
+        photo5 = #{photo5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where hid = #{hid,jdbcType=VARCHAR}
+  </update>
+
+  <update id = "updatepsdByPrimaryKey" parameterType="com.example.hotel_booking.common.domain.Hotel">
+    update hotel
+    set password = #{password, jdbcType=VARCHAR}
+    where hid = #{hid,jdbcType=VARCHAR}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.example.hotel_booking.common.domain.Hotel">
+    update hotel
+    set name = #{name,jdbcType=VARCHAR},
+      translated_name = #{translatedName,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      state = #{state,jdbcType=VARCHAR},
+      country = #{country,jdbcType=VARCHAR},
+      star_rating = #{starRating,jdbcType=DECIMAL},
+      url = #{url,jdbcType=VARCHAR},
+      overview = #{overview,jdbcType=VARCHAR},
+      rating_average = #{ratingAverage,jdbcType=DECIMAL}
+    <!--
+
+    checkin = #{checkin,jdbcType=TIME},
+    checkout = #{checkout,jdbcType=TIME},
+    photo1 = #{photo1,jdbcType=VARCHAR},
+    photo2 = #{photo2,jdbcType=VARCHAR},
+    photo3 = #{photo3,jdbcType=VARCHAR},
+    photo4 = #{photo4,jdbcType=VARCHAR},
+    photo5 = #{photo5,jdbcType=VARCHAR}-->
+    where hid = #{hid,jdbcType=VARCHAR}
+  </update>
+</mapper>

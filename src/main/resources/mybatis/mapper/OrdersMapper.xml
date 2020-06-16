@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.hotel_booking.mapper.OrdersMapper">
+  <resultMap id="BaseResultMap" type="com.example.hotel_booking.common.domain.Orders">
+    <id column="hid" jdbcType="VARCHAR" property="hid" />
+    <id column="uid" jdbcType="VARCHAR" property="uid" />
+    <id column="rid" jdbcType="VARCHAR" property="rid" />
+    <id column="oid" jdbcType="VARCHAR" property="oid" />
+    <result column="checkinD" jdbcType="DATE" property="checkind" />
+    <result column="checkoutD" jdbcType="DATE" property="checkoutd" />
+    <result column="number" jdbcType="INTEGER" property="number" />
+    <result column="price" jdbcType="INTEGER" property="price" />
+    <result column="payed" jdbcType="INTEGER" property="payed" />
+    <result column="ordertime" jdbcType="TIMESTAMP" property="ordertime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="finished" jdbcType="INTEGER" property="finished" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    hid, uid, rid, oid, checkinD, checkoutD, number, price, payed, ordertime, remark, 
+    finished
+  </sql>
+  <select id="selectByExample" parameterType="com.example.hotel_booking.common.domain.OrdersExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from orders
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="com.example.hotel_booking.common.domain.OrdersKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from orders
+    where hid = #{hid,jdbcType=VARCHAR}
+      and uid = #{uid,jdbcType=VARCHAR}
+      and rid = #{rid,jdbcType=VARCHAR}
+      and oid = #{oid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.example.hotel_booking.common.domain.OrdersKey">
+    delete from orders
+    where hid = #{hid,jdbcType=VARCHAR}
+      and uid = #{uid,jdbcType=VARCHAR}
+      and rid = #{rid,jdbcType=VARCHAR}
+      and oid = #{oid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.example.hotel_booking.common.domain.OrdersExample">
+    delete from orders
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.example.hotel_booking.common.domain.Orders">
+    insert into orders (hid, uid, rid, 
+      oid, checkinD, checkoutD, 
+      number, price, payed, 
+      ordertime, remark, finished
+      )
+    values (#{hid,jdbcType=VARCHAR}, #{uid,jdbcType=VARCHAR}, #{rid,jdbcType=VARCHAR}, 
+      #{oid,jdbcType=VARCHAR}, #{checkind,jdbcType=DATE}, #{checkoutd,jdbcType=DATE}, 
+      #{number,jdbcType=INTEGER}, #{price,jdbcType=INTEGER}, #{payed,jdbcType=INTEGER}, 
+      #{ordertime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, #{finished,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.hotel_booking.common.domain.Orders">
+    insert into orders
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="hid != null">
+        hid,
+      </if>
+      <if test="uid != null">
+        uid,
+      </if>
+      <if test="rid != null">
+        rid,
+      </if>
+      <if test="oid != null">
+        oid,
+      </if>
+      <if test="checkind != null">
+        checkinD,
+      </if>
+      <if test="checkoutd != null">
+        checkoutD,
+      </if>
+      <if test="number != null">
+        number,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="payed != null">
+        payed,
+      </if>
+      <if test="ordertime != null">
+        ordertime,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="finished != null">
+        finished,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="hid != null">
+        #{hid,jdbcType=VARCHAR},
+      </if>
+      <if test="uid != null">
+        #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="rid != null">
+        #{rid,jdbcType=VARCHAR},
+      </if>
+      <if test="oid != null">
+        #{oid,jdbcType=VARCHAR},
+      </if>
+      <if test="checkind != null">
+        #{checkind,jdbcType=DATE},
+      </if>
+      <if test="checkoutd != null">
+        #{checkoutd,jdbcType=DATE},
+      </if>
+      <if test="number != null">
+        #{number,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=INTEGER},
+      </if>
+      <if test="payed != null">
+        #{payed,jdbcType=INTEGER},
+      </if>
+      <if test="ordertime != null">
+        #{ordertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="finished != null">
+        #{finished,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.hotel_booking.common.domain.OrdersExample" resultType="java.lang.Long">
+    select count(*) from orders
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update orders
+    <set>
+      <if test="record.hid != null">
+        hid = #{record.hid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uid != null">
+        uid = #{record.uid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rid != null">
+        rid = #{record.rid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.oid != null">
+        oid = #{record.oid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.checkind != null">
+        checkinD = #{record.checkind,jdbcType=DATE},
+      </if>
+      <if test="record.checkoutd != null">
+        checkoutD = #{record.checkoutd,jdbcType=DATE},
+      </if>
+      <if test="record.number != null">
+        number = #{record.number,jdbcType=INTEGER},
+      </if>
+      <if test="record.price != null">
+        price = #{record.price,jdbcType=INTEGER},
+      </if>
+      <if test="record.payed != null">
+        payed = #{record.payed,jdbcType=INTEGER},
+      </if>
+      <if test="record.ordertime != null">
+        ordertime = #{record.ordertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.finished != null">
+        finished = #{record.finished,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update orders
+    set hid = #{record.hid,jdbcType=VARCHAR},
+      uid = #{record.uid,jdbcType=VARCHAR},
+      rid = #{record.rid,jdbcType=VARCHAR},
+      oid = #{record.oid,jdbcType=VARCHAR},
+      checkinD = #{record.checkind,jdbcType=DATE},
+      checkoutD = #{record.checkoutd,jdbcType=DATE},
+      number = #{record.number,jdbcType=INTEGER},
+      price = #{record.price,jdbcType=INTEGER},
+      payed = #{record.payed,jdbcType=INTEGER},
+      ordertime = #{record.ordertime,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      finished = #{record.finished,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.hotel_booking.common.domain.Orders">
+    update orders
+    <set>
+      <if test="checkind != null">
+        checkinD = #{checkind,jdbcType=DATE},
+      </if>
+      <if test="checkoutd != null">
+        checkoutD = #{checkoutd,jdbcType=DATE},
+      </if>
+      <if test="number != null">
+        number = #{number,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=INTEGER},
+      </if>
+      <if test="payed != null">
+        payed = #{payed,jdbcType=INTEGER},
+      </if>
+      <if test="ordertime != null">
+        ordertime = #{ordertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="finished != null">
+        finished = #{finished,jdbcType=INTEGER},
+      </if>
+    </set>
+    where hid = #{hid,jdbcType=VARCHAR}
+      and uid = #{uid,jdbcType=VARCHAR}
+      and rid = #{rid,jdbcType=VARCHAR}
+      and oid = #{oid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.hotel_booking.common.domain.Orders">
+    update orders
+    set checkinD = #{checkind,jdbcType=DATE},
+      checkoutD = #{checkoutd,jdbcType=DATE},
+      number = #{number,jdbcType=INTEGER},
+      price = #{price,jdbcType=INTEGER},
+      payed = #{payed,jdbcType=INTEGER},
+      ordertime = #{ordertime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      finished = #{finished,jdbcType=INTEGER}
+    where hid = #{hid,jdbcType=VARCHAR}
+      and uid = #{uid,jdbcType=VARCHAR}
+      and rid = #{rid,jdbcType=VARCHAR}
+      and oid = #{oid,jdbcType=VARCHAR}
+  </update>
+</mapper>

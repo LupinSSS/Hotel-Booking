@@ -1,0 +1,46 @@
+*{
+    padding: 0;margin: 0;outline: 0
+}
+body {
+    font-family: "Source Sans Pro";
+}
+.index-page {
+    background: #d2d6de;
+    text-align: center;
+}
+.index-box {
+    margin: 0 auto;
+    margin-top: 7%;
+    width: 90%;
+    height: 350px;
+    text-align: center;
+}
+.logo {
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 25px;
+    font-weight: 300;
+}
+.index-body {
+    background: white;
+    margin: 0 auto;
+    width: 30%;
+    height: 75%;
+    padding: 30px;
+    border-top: 0;
+    color: #060606;
+}
+.index-box-msg {
+    margin: 0;
+    text-align: center;
+    padding: 10px 20px 30px 20px;
+}
+.btn {
+    border: 1px solid rgb(108, 117, 125);
+    width: 100px;
+    height: 100px;
+}
+.row {
+    margin-top: 50px;
+}
+

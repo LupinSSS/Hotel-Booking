@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.hotel_booking.mapper.RoomMapper">
+  <resultMap id="BaseResultMap" type="com.example.hotel_booking.common.domain.Room">
+    <id column="rid" jdbcType="VARCHAR" property="rid" />
+    <result column="hid" jdbcType="VARCHAR" property="hid" />
+    <result column="area" jdbcType="VARCHAR" property="area" />
+    <result column="floor" jdbcType="VARCHAR" property="floor" />
+    <result column="window" jdbcType="VARCHAR" property="window" />
+    <result column="wifi" jdbcType="VARCHAR" property="wifi" />
+    <result column="capacity" jdbcType="INTEGER" property="capacity" />
+    <result column="bed_info" jdbcType="VARCHAR" property="bedInfo" />
+    <result column="fee_policy" jdbcType="VARCHAR" property="feePolicy" />
+    <result column="facility" jdbcType="VARCHAR" property="facility" />
+    <result column="bathroom" jdbcType="VARCHAR" property="bathroom" />
+    <result column="price" jdbcType="INTEGER" property="price" />
+    <result column="number" jdbcType="INTEGER" property="number" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    rid, hid, area, floor, window, wifi, capacity, bed_info, fee_policy, facility, bathroom, 
+    price, number, type
+  </sql>
+  <select id="selectByExample" parameterType="com.example.hotel_booking.common.domain.RoomExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from room
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from room
+    where rid = #{rid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from room
+    where rid = #{rid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.example.hotel_booking.common.domain.RoomExample">
+    delete from room
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.example.hotel_booking.common.domain.Room">
+    insert into room (rid, hid, area, 
+      floor, window, wifi, 
+      capacity, bed_info, fee_policy, 
+      facility, bathroom, price, 
+      number, type)
+    values (#{rid,jdbcType=VARCHAR}, #{hid,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR}, 
+      #{floor,jdbcType=VARCHAR}, #{window,jdbcType=VARCHAR}, #{wifi,jdbcType=VARCHAR}, 
+      #{capacity,jdbcType=INTEGER}, #{bedInfo,jdbcType=VARCHAR}, #{feePolicy,jdbcType=VARCHAR}, 
+      #{facility,jdbcType=VARCHAR}, #{bathroom,jdbcType=VARCHAR}, #{price,jdbcType=INTEGER}, 
+      #{number,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.hotel_booking.common.domain.Room">
+    insert into room
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="rid != null">
+        rid,
+      </if>
+      <if test="hid != null">
+        hid,
+      </if>
+      <if test="area != null">
+        area,
+      </if>
+      <if test="floor != null">
+        floor,
+      </if>
+      <if test="window != null">
+        window,
+      </if>
+      <if test="wifi != null">
+        wifi,
+      </if>
+      <if test="capacity != null">
+        capacity,
+      </if>
+      <if test="bedInfo != null">
+        bed_info,
+      </if>
+      <if test="feePolicy != null">
+        fee_policy,
+      </if>
+      <if test="facility != null">
+        facility,
+      </if>
+      <if test="bathroom != null">
+        bathroom,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="number != null">
+        number,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="rid != null">
+        #{rid,jdbcType=VARCHAR},
+      </if>
+      <if test="hid != null">
+        #{hid,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null">
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="floor != null">
+        #{floor,jdbcType=VARCHAR},
+      </if>
+      <if test="window != null">
+        #{window,jdbcType=VARCHAR},
+      </if>
+      <if test="wifi != null">
+        #{wifi,jdbcType=VARCHAR},
+      </if>
+      <if test="capacity != null">
+        #{capacity,jdbcType=INTEGER},
+      </if>
+      <if test="bedInfo != null">
+        #{bedInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="feePolicy != null">
+        #{feePolicy,jdbcType=VARCHAR},
+      </if>
+      <if test="facility != null">
+        #{facility,jdbcType=VARCHAR},
+      </if>
+      <if test="bathroom != null">
+        #{bathroom,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=INTEGER},
+      </if>
+      <if test="number != null">
+        #{number,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.hotel_booking.common.domain.RoomExample" resultType="java.lang.Long">
+    select count(*) from room
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update room
+    <set>
+      <if test="record.rid != null">
+        rid = #{record.rid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hid != null">
+        hid = #{record.hid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.area != null">
+        area = #{record.area,jdbcType=VARCHAR},
+      </if>
+      <if test="record.floor != null">
+        floor = #{record.floor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.window != null">
+        window = #{record.window,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wifi != null">
+        wifi = #{record.wifi,jdbcType=VARCHAR},
+      </if>
+      <if test="record.capacity != null">
+        capacity = #{record.capacity,jdbcType=INTEGER},
+      </if>
+      <if test="record.bedInfo != null">
+        bed_info = #{record.bedInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.feePolicy != null">
+        fee_policy = #{record.feePolicy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.facility != null">
+        facility = #{record.facility,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bathroom != null">
+        bathroom = #{record.bathroom,jdbcType=VARCHAR},
+      </if>
+      <if test="record.price != null">
+        price = #{record.price,jdbcType=INTEGER},
+      </if>
+      <if test="record.number != null">
+        number = #{record.number,jdbcType=INTEGER},
+      </if>
+      <if test="record.type != null">
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update room
+    set rid = #{record.rid,jdbcType=VARCHAR},
+      hid = #{record.hid,jdbcType=VARCHAR},
+      area = #{record.area,jdbcType=VARCHAR},
+      floor = #{record.floor,jdbcType=VARCHAR},
+      window = #{record.window,jdbcType=VARCHAR},
+      wifi = #{record.wifi,jdbcType=VARCHAR},
+      capacity = #{record.capacity,jdbcType=INTEGER},
+      bed_info = #{record.bedInfo,jdbcType=VARCHAR},
+      fee_policy = #{record.feePolicy,jdbcType=VARCHAR},
+      facility = #{record.facility,jdbcType=VARCHAR},
+      bathroom = #{record.bathroom,jdbcType=VARCHAR},
+      price = #{record.price,jdbcType=INTEGER},
+      number = #{record.number,jdbcType=INTEGER},
+      type = #{record.type,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.hotel_booking.common.domain.Room">
+    update room
+    <set>
+      <if test="hid != null">
+        hid = #{hid,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null">
+        area = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="floor != null">
+        floor = #{floor,jdbcType=VARCHAR},
+      </if>
+      <if test="window != null">
+        window = #{window,jdbcType=VARCHAR},
+      </if>
+      <if test="wifi != null">
+        wifi = #{wifi,jdbcType=VARCHAR},
+      </if>
+      <if test="capacity != null">
+        capacity = #{capacity,jdbcType=INTEGER},
+      </if>
+      <if test="bedInfo != null">
+        bed_info = #{bedInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="feePolicy != null">
+        fee_policy = #{feePolicy,jdbcType=VARCHAR},
+      </if>
+      <if test="facility != null">
+        facility = #{facility,jdbcType=VARCHAR},
+      </if>
+      <if test="bathroom != null">
+        bathroom = #{bathroom,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=INTEGER},
+      </if>
+      <if test="number != null">
+        number = #{number,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where rid = #{rid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.hotel_booking.common.domain.Room">
+    update room
+    set hid = #{hid,jdbcType=VARCHAR},
+      area = #{area,jdbcType=VARCHAR},
+      floor = #{floor,jdbcType=VARCHAR},
+      window = #{window,jdbcType=VARCHAR},
+      wifi = #{wifi,jdbcType=VARCHAR},
+      capacity = #{capacity,jdbcType=INTEGER},
+      bed_info = #{bedInfo,jdbcType=VARCHAR},
+      fee_policy = #{feePolicy,jdbcType=VARCHAR},
+      facility = #{facility,jdbcType=VARCHAR},
+      bathroom = #{bathroom,jdbcType=VARCHAR},
+      price = #{price,jdbcType=INTEGER},
+      number = #{number,jdbcType=INTEGER},
+      type = #{type,jdbcType=VARCHAR}
+    where rid = #{rid,jdbcType=VARCHAR}
+  </update>
+</mapper>

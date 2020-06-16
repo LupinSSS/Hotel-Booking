@@ -11,7 +11,7 @@
         </commentGenerator>
 
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://127.0.0.1:3306/springboot_demo?useUnicode=true&amp;characterEncoding=utf8&amp;zeroDateTimeBehavior=convertToNull"
+                        connectionURL="jdbc:mysql://127.0.0.1:3306/hotel_booking?useUnicode=true&amp;characterEncoding=utf8&amp;zeroDateTimeBehavior=convertToNull"
                         userId="root"
                         password="root">
         </jdbcConnection>
@@ -35,8 +35,13 @@
         </javaClientGenerator>
 
 
-        <table tableName="Admin" domainObjectName="Admin"/>
-        <table tableName="Book" domainObjectName="Book"/>
+            <table tableName="hotel" domainObjectName="HOTEL"/>
+           <!--
+                <table tableName="hotel" domainObjectName="Hotel"/>
+                <table tableName="orders" domainObjectName="Orders"/>
+                <table tableName="room" domainObjectName="Room"/>
+                <table tableName="USER" domainObjectName="User"/>
+                -->
 
         <!--  <table schema="DB2ADMIN" tableName="ALLTYPES" domainObjectName="Customer" >
               <property name="useActualColumnNames" value="true"/>

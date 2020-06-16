@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>修改信息</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+</head>
+<body>
+<ul class="nav nav-tabs">
+    <div>
+        <h1 th:text="${hotel.translatedName}" style="margin-left: 1%; width: 500px"></h1><hr>
+    </div>
+    <br>
+    <div style="margin-left: 10%">
+        <div style="width: 900px">
+            <form action="/showhotel">
+                酒店名：<input th:value="${hotel.hid}" name="hid" readonly="readonly" style="width: 200px; height: 20px"></input><br>
+                酒店英文名：<input th:value="${hotel.name}" name="name" readonly="readonly" style="width: 200px; height: 20px"></input><br>
+                <li>入住时间：[[${#dates.format(hotel.checkin,'HH:mm:ss')}]]
+                    退房时间：[[${#dates.format(hotel.checkout,'HH:mm:ss')}]]
+                </li><br><hr>
+                网址：<input th:value="${hotel.url}" name="url" readonly="readonly" style="width: 200px; height: 20px"></input><br>
+                评分：<input th:value="${hotel.ratingAverage}" name="ratingAverage" readonly="readonly" style="width: 200px; height: 20px"></input><br>
+                星级：<input th:value="${hotel.starRating}" name="starRating" style="width: 200px; height: 20px"></input><br>
+                国家：<input th:value="${hotel.country}" name="country" style="width: 200px; height: 20px"></li><br>
+                所在省：<input th:value="${hotel.state}" name="state" style="width: 200px; height: 20px"></li><br>
+                所在城市：<input th:value="${hotel.city}" name="hid" style="width: 200px; height: 20px"></li><br>
+                酒店地址：<input th:value="${hotel.address}" name="address" style="width: 200px; height: 20px"></li><br>
+                简介：<input th:value="${hotel.overview}" name="overview" style="width: 200px; height: 20px"></li><br>
+            </form>
+        </div>
+    </div>
+</ul>
+
+<br>
+<button class="btn btn-info confire" >确认修改</button>
+
+<!-- jQuery 3 -->
+<script src="bower_components/jquery/dist/jquery.min.js" th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js" th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.min.js" th:src="@{/dist/js/adminlte.min.js}"></script>
+
+<script src="/static/bower_components/bootstrap-table/bootstrap-table.js"
+        th:src="@{/bower_components/bootstrap-table/bootstrap-table.js}"></script>
+<script src="/static/bower_components/bootstrap-table/locale/bootstrap-table-zh-CN.js"
+        th:src="@{/bower_components/bootstrap-table/locale/bootstrap-table-zh-CN.js}"></script>
+
+<script src="/static/bower_components/layer/layer.js"
+        th:src="@{/bower_components/layer/layer.js}"></script>
+
+</body>
+</html>
+<script>
+    $(".confire").click(function () {
+        layer.confirm("确认修改:？", {icon: 3, title:'确认'}, function(){
+            //do something
+            alert("11111");
+        });
+    });
+</script>

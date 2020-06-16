@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>酒店修改详情</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"
+      th:href="@{/bower_components/bootstrap/dist/css/bootstrap.min.css}">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css"
+      th:href="@{/bower_components/font-awesome/css/font-awesome.min.css}">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css"
+      th:href="@{/bower_components/Ionicons/css/ionicons.min.css}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="dist/css/AdminLTE.min.css" th:href="@{/dist/css/AdminLTE.min.css}">
+
+    <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css" th:href="@{/dist/css/skins/_all-skins.min.css}">
+    <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css" th:href="@{/bower_components/bootstrap/dist/css/bootstrap.min.css}"/>
+</head>
+<body>
+<div>
+    <button class="btn btn-default return" style="float: left">返回</button>
+    <button class="btn btn-adn passwordbtn" style="float: right">修改密码</button>
+</div>
+
+<!-- REQUIRED JS SCRIPTS -->
+
+<h1 align="center">导航栏</h1>
+<hr>
+
+<div class="col-md-7 col-md-offset-2" >
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">修改信息</h3>
+        </div>
+
+        <div class="box-body">
+            <form action="/edit">
+
+                <div class="form-group">
+                    酒店名:
+                    <input type="text" class="form-control" name="name" th:value= "${hotel.name}">
+                </div>
+
+                <div class="form-group">
+                   酒店中文名:
+                    <input type="text" class="form-control" name="translatedName" th:value= "${hotel.translatedName}" >
+                </div>
+                <div class="form-group">
+                    酒店地址:
+                    <input type="text"  class="form-control" name="address" th:value= "${hotel.address}">
+                </div>
+                <div class="form-group">
+                    所在城市：
+                    <input type="text" class="form-control" name="city" th:value= "${hotel.city}">
+                </div>
+                <div class="form-group">
+                    省：
+                    <input type="text" class="form-control" name="state" th:value= "${hotel.state}">
+                </div>
+                <div class="form-group">
+                    国家：
+                    <input type="text" class="form-control" name="country" th:value= "${hotel.country}">
+                </div>
+                <div class="form-group">
+                    星级：
+                    <input type="number"class="form-control" name="starRating" step = "0.5" th:value= "${hotel.starRating}">
+                </div>
+                <div class="form-group">
+                    网址：
+                    <input type="text" class="form-control" name="url" th:value= "${hotel.url}">
+                </div>
+                <div class="form-group">
+                    简介：
+                    <input type="text" class="form-control" name="overview" th:value= "${hotel.overview}">
+                </div>
+                <div class="form-group">
+                    评分：
+                    <input type="number" class="form-control" name="ratingAverage" th:value= "${hotel.ratingAverage}">
+                </div>
+                <!--时间、照片修改还有bug555555555
+                <div>
+                    入住时间：<input type="time" name="checkin"  th:value= "${hotel.checkin}">
+                    退房时间：<input type="time" name="checkin"  th:value= "${hotel.checkout}">
+                </div>
+
+                <div><input type="image" th:src="${hotel.photo1}"><input type="image" th:src="${hotel.photo2}"><input type="image" th:src="${hotel.photo3}"><input type="image" th:src="${hotel.photo4}"><input type="image" th:src="${hotel.photo5}"></div>
+-->
+                <div><input id  = "edit" type="submit" class="btn btn-primary btn-lg" value="提交"></div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- jQuery 3 -->
+<script src="bower_components/jquery/dist/jquery.min.js" th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js" th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.min.js" th:src="@{/dist/js/adminlte.min.js}"></script>
+
+<script src="/static/bower_components/bootstrap-table/bootstrap-table.js"
+        th:src="@{/bower_components/bootstrap-table/bootstrap-table.js}"></script>
+<script src="/static/bower_components/bootstrap-table/locale/bootstrap-table-zh-CN.js"
+        th:src="@{/bower_components/bootstrap-table/locale/bootstrap-table-zh-CN.js}"></script>
+
+<script src="/static/bower_components/layer/layer.js"
+        th:src="@{/bower_components/layer/layer.js}"></script>
+<!-- Optionally, you can add Slimscroll and FastClick plugins.
+     Both of these plugins are recommended to enhance the
+     user experience. -->
+
+</body>
+</html>
+<script>
+    $(".return").click(function () {
+        history.go(-1)
+    })
+    $(".passwordbtn").click(function () {
+        layer.open({
+            id:1,
+            type: 1,
+            title:'修改密码',
+            skin:'layui-layer-rim',
+            area:['450px', 'auto'],
+            content: ' <div class="row" style="width: 420px;  margin-left:7px; margin-top:10px;">'
+                +'<div class="col-sm-12">'
+                +'<div class="input-group">'
+                +'<span class="input-group-addon"> 新 密 码  &nbsp;:&nbsp;&nbsp;</span>'
+                +'<input id="firstpwd" name = "newpassword" type="password" class="form-control" placeholder="请输入密码">'
+                +'</div>'
+                +'</div>'
+                +'<div class="col-sm-12" style="margin-top: 10px">'
+                +'<div class="input-group">'
+                +'<span class="input-group-addon">确认密码: &nbsp; </span>'
+                +'<input id="secondpwd" type="password" class="form-control" placeholder="请再输入一次密码">'
+                +'</div>'
+                +'</div>'
+                +'</div>'
+            ,
+            btn:['保存','取消'],
+            btn1: function (index,layero) {
+                var firstpsw = document.getElementById("firstpwd").value;
+                var secondpsw = document.getElementById("secondpwd").value;
+                if(firstpsw != secondpsw){
+                    window.alert("两次输入不一致，请重新输入！")
+                }else{
+                    $.ajax({
+                        url:"/editpassword",
+                        type:"post",
+                        contentType:"application/json",
+                        data:document.getElementById("firstpwd").value,
+                        success:function (data) {
+                            if(data == 1){
+                                layer.open({
+                                    title: '成功'
+                                    ,content: '修改成功'
+                                });
+                                layer.close(index);
+                            }else{
+                                layer.msg("操作失败！请重新输入",{time:700});
+                            }
+                        }
+                    })
+                }
+
+            },
+            btn2:function (index,layero) {
+                layer.close(index);
+            }
+        });
+    })
+</script>

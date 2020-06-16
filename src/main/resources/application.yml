@@ -1,16 +1,30 @@
-# 数据库连接设置
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/springboot_demo?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
+    url: jdbc:mysql://127.0.0.1:3306/hotel_booking?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
     username: root
     password: root
+
+    # 设置全局日期格式,如果设置这个格式,则代码中不需要再添加@DateTimeFormat(pattern = "yyyy-MM-dd")
+  mvc:
+    format:
+      date: yyyy-MM-dd
+
+
+
+server:
+  port: 8080
+  servlet:
+    encoding:
+      charset: utf-8
+
 
 
 # Mybatis 配置
 mybatis:
   mapper-locations: classpath:/mybatis/mapper/*.xml
 
+
 logging:
   level:
-    com.example.hotel_booking.mapper: debug
+    com.demo.springboot.helloworld.mapper: debug

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>酒店预订系统-酒店注册</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>酒店预订系统-用户注册</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.7 -->
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="../bower_components/Ionicons/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="../dist/css/AdminLTE.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="../plugins/iCheck/square/blue.css">
+
+    <script type="text/javascript">
+        function checkpsw() {
+            var newpsw = document.getElementById("PASSWORD").value;
+            var repsw = document.getElementById("REPASSWORD").value;
+            if(newpsw != repsw) {
+                window.alert("两次输入密码不一致！")
+                return false;
+            }
+        }
+    </script>
+
+</head>
+<body class="hold-transition register-page">
+<div class="register-box">
+    <div class="register-logo">
+        <b>酒店预订系统</b></a>
+    </div>
+
+    <div class="register-box-body">
+        <p class="login-box-msg">酒店注册</p>
+
+        <form action="/hotel/register" onsubmit="return checkpsw()">
+            酒店编号：<input id="hid" type="text" class="form-control" name="hid" required="required"><br>
+            酒店中文名：<input id="translated_name" type="text" class="form-control" name="translated_name" required="required"><br>
+            酒店英文名：<input id="name" type="text" class="form-control" name="NAME" required="required"><br>
+            设置密码：<input id="password" type="password" class="form-control" name="PASSWORD" required="required"><br>
+            确认密码：<input id="repassword" type="password" class="form-control" name="REPASSWORD" required="required"><br>
+            酒店所在国家：<input id="country" type="text" class="form-control" name="country" required="required"><br>
+            酒店所在省：<input id="state" type="text" class="form-control" name="state" required="required"><br>
+            酒店所在城市：<input id="city" type="text" class="form-control" name="city" required="required"><br>
+            酒店地址：<input id="address" type="text" class="form-control" name="address" required="required"><br>
+            酒店星级评分：<input id="star_rating" type="text" class="form-control" placeholder="*只能输入整数或小数" name="star_rating" required="required"><br>
+            酒店平均评分：<input id="rating_average" type="text" class="form-control" placeholder="*只能输入整数或小数" name="rating_average" required="required"><br>
+            酒店官网地址：<input id="url" type="text" class="form-control" name="url" required="required"><br>
+            酒店描述：<input id="overview" type="text" class="form-control" name="overview" required="required"><br>
+            入住时间（时：分）：<input id="checkin" type="time" class="form-control" name="checkinTime" required="required"><br>
+            退房时间（时：分）：<input id="checkout" type="time" class="form-control" name="checkoutTime" required="required"><br>
+            上传五张酒店图片：
+            <input id="photo1" type="file" class="form-control" name="photo1" required="required" />
+            <input id="photo2" type="file" class="form-control" name="photo2" required="required" />
+            <input id="photo3" type="file" class="form-control" name="photo3" required="required" />
+            <input id="photo4" type="file" class="form-control" name="photo4" required="required" />
+            <input id="photo5" type="file" class="form-control" name="photo5" required="required" /><br>
+            <div class="row">
+                <!-- /.col -->
+                <div class="col-xs-4"style="margin-left: 33%">
+                    <button type="submit" class="btn btn-primary btn-block btn-flat">注册</button>
+                </div>
+                <!-- /.col -->
+            </div>
+            <a th:href="@{back1}" style="float: left">返回</a>
+            <br>
+        </form>
+    </div>
+    <!-- /.form-box -->
+</div>
+<!-- /.register-box -->
+
+<!-- jQuery 3 -->
+<script src="../bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- iCheck -->
+<script src="../plugins/iCheck/icheck.min.js"></script>
+<script>
+    $(function () {
+        $('input').iCheck({
+            checkboxClass: 'icheckbox_square-blue',
+            radioClass: 'iradio_square-blue',
+            increaseArea: '20%' /* optional */
+        });
+    });
+</script>
+</body>
+
+</html>

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+    <title>酒店</title>
+</head>
+<!--用户登录时在controller判断后跳转到这个页面-->
+<body>
+<div style="position: fixed; top: 10px; left: 30%">
+    <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="输入酒店名" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜索</button>
+    </form>
+</div>
+<div style="float: right; height: 50px; margin-right: 20px">
+    管理员&nbsp;&nbsp;&nbsp;&nbsp;
+    <button  type="button" class="btn btn-danger logout">
+        退出登录
+    </button>
+</div>
+<br>
+<br>
+<div style="margin-left: 10px">
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                管理
+            </h1>
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link" href="menu">所有用户</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link">所有酒店</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="allorders">所有订单</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="allhotels">酒店注册申请</a>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Main content -->
+        <section class="content container-fluid">
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box">
+                        <div class="box-header">
+                            <div id="toolbar">
+                                <button class="btn btn-danger remove-batch" >批量注销</button>
+                            </div>
+                        </div>
+                        <!-- /.box-header -->
+                        <div style="margin-left: 50px">
+                            <div class="box-body">
+                                <table id="table1" class="table table-bordered table-hover">
+
+                                </table>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+
+
+                </div>
+                <!-- /.col -->
+            </div>
+        </section>
+    </div>
+
+</div>
+<!-- jQuery 3 -->
+<script src="bower_components/jquery/dist/jquery.min.js" th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js" th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.min.js" th:src="@{/dist/js/adminlte.min.js}"></script>
+
+<script src="/static/bower_components/bootstrap-table/bootstrap-table.js"
+        th:src="@{/bower_components/bootstrap-table/bootstrap-table.js}"></script>
+<script src="/static/bower_components/bootstrap-table/locale/bootstrap-table-zh-CN.js"
+        th:src="@{/bower_components/bootstrap-table/locale/bootstrap-table-zh-CN.js}"></script>
+
+<script src="/static/bower_components/layer/layer.js"
+        th:src="@{/bower_components/layer/layer.js}"></script>
+
+</body>
+</html>
+
+<script>
+    window.operateEvents  = {
+        //删除 单行/
+        'click .btn_del': function (e, value, row, index) {
+            var id = row.hid;
+            layer.confirm("确认注销: "+row.translatedName + "  ?", {icon: 3, title:'注销用户'}, function(index){
+                //do something
+                $.ajax({
+                    type: "delete",
+                    url: "/deleteHotel",
+                    contentType:"application/json",
+                    data:JSON.stringify({"hid":id }),
+                    success: function(msg){
+                        if(msg["success"]){
+                            $('#table1').bootstrapTable('remove', {
+                                field: 'hid',
+                                values: [id]
+                            });
+                            layer.msg("操作成功",{time:700});
+                        }
+                    }
+                });
+                layer.close(index);
+            });
+        },
+        'click .btn_HotelDetail': function (e, value, row, index) {
+            var url = 'showhotel?uid=' + row.hid;
+            window.location.href=url;
+        }
+    };
+
+    $(function () {
+        $('#table1').bootstrapTable('destroy').bootstrapTable({
+            method: 'get',
+            url: "/gethotels",
+            striped: true,
+            dataField: "list",
+            totalField: "total",
+            pageNumber: 1,
+            pageSize: 10,
+            pagination: true,
+            queryParamsType: 'limit',
+            queryParams: function (params) {
+                return {
+                    pageSize: params.limit,
+                    pageNo: params.offset / params.limit + 1
+                }
+            },
+            sidePagination: 'server',
+            pageList: "[10, 25, 50, 100, all]",
+            showRefresh: true,
+            clickToSelect: true,
+            toolbarAlign: 'left',
+            buttonsAlign: 'right',
+            toolbar: '#toolbar',
+            showColumns: false,
+            paginationLoop: false,
+            columns: [
+                {
+                    //  title: '全选/反选',
+                    checkbox: true
+                },
+                {
+                    title: '酒店名',
+                    field: 'translatedName',
+                    visible: true,
+                    width: 250
+                },
+                {
+                    title: '星级',
+                    field: 'starRating',
+                    visible: true,
+                    width: 160
+                },
+                {
+                    title: '评分',
+                    field: 'ratingAverage',
+                    visible: true,
+                    width: 160
+                },
+                {
+                    title: '酒店详情',
+                    width: 300,
+                    align: 'center',
+                    formatter:function (value, row, index) {
+                        return [
+                            '<button  type="button" class="btn btn-outline-dark btn-xs btn_HotelDetail">',
+                            '查看酒店' ,
+                            '</button>',
+                        ].join(' ')
+                    },
+                    events:window.operateEvents
+                },
+                {
+                    title: '订单',
+                    width: 200,
+                    align: 'center',
+                    formatter:function (value, row, index) {
+                        return [
+                            '<button  type="button" class="btn btn-outline-dark btn-xs orders">',
+                            '所有订单' ,
+                            '</button>',
+                        ].join(' ')
+                    },
+                    events:window.operateEvents
+                },
+                {
+                    title: '注销账户',
+                    width: 200,
+                    align: 'center',
+                    formatter:function (value, row, index) {
+                        return [
+                            '<button  type="button" class="btn btn-danger btn-xs btn_del">',
+                            '注销' ,
+                            '</button>',
+                        ].join(' ')
+                    },
+                    events:window.operateEvents
+                }
+            ],
+            locale: 'zh-CN',
+            responseHandler: function (data) {
+                return data['data'];
+            }
+        });
+        $(".logout").click(function () {
+            layer.confirm("确认退出:？", {icon: 3, title:'退出登录'}, function(){
+                //do something
+
+
+                //这里是登录的界面！！！！！！！！！！！！！！！！！
+                window.location.href='adminlogin';
+            });
+        });
+    })
+    $(".remove-batch").click(function () {
+        var rows =  $('#table1').bootstrapTable('getSelections');
+        var ids= $.map(rows,function (row) {
+            return row.hid;
+        });
+
+        if(ids.length>0){
+            layer.confirm("确认删除", {icon: 3, title:'删除操作'}, function(index){
+                //do something
+                $.ajax({
+                    type: "delete",
+                    url: "/deleteHotels",
+                    contentType:"application/json",
+                    data:JSON.stringify(ids),
+                    success: function(msg){
+                        if(msg["success"]){
+                            $('#table1').bootstrapTable('refresh');
+                            layer.msg("批量操作成功",{time:700});
+                            /*   $('#table1').bootstrapTable('remove', {
+                                 field: 'id',
+                                 values: ids
+                               });*/
+
+                        }
+                    }
+                });
+                layer.close(index);
+            });
+        }else {
+            layer.msg("未选中行",{time:700});
+        }
+
+    });
+
+</script>

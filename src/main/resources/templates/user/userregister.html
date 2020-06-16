@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>酒店预订系统-用户注册</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.7 -->
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="../bower_components/Ionicons/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="../dist/css/AdminLTE.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="../plugins/iCheck/square/blue.css">
+
+    <script type="text/javascript">
+        function checkpsw() {
+            var newpsw = document.getElementById("password").value;
+            var repsw = document.getElementById("repassword").value;
+            if(newpsw != repsw) {
+                window.alert("两次输入密码不一致！")
+                return false;
+            }
+        }
+    </script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+
+    <![endif]-->
+
+    <!-- Google Font -->
+
+</head>
+<body class="hold-transition register-page">
+<div class="register-box" style="height: 57%">
+    <div class="register-logo">
+        <b>酒店预订系统</b></a>
+    </div>
+
+    <div class="register-box-body" style="height: 78%">
+        <p class="login-box-msg">用户注册</p>
+
+        <form action="/user/register" onsubmit="return checkpsw()">
+            <div class="form-group has-feedback">
+                <input id="name" type="text" class="form-control" placeholder="用户名" name="name" required="required">
+            </div>
+            <div class="form-group has-feedback">
+                <input id="uid" type="text" class="form-control" placeholder="手机号" name="uid" required="required">
+            </div>
+            <div class="form-group has-feedback">
+                <input id="password" type="password" class="form-control" placeholder="密码" name="password" required="required">
+            </div>
+            <div class="form-group has-feedback">
+                <input id="repassword" type="password" class="form-control" placeholder="确认密码" name="repassword" required="required">
+            </div>
+            <div class="row">
+                <!-- /.col -->
+               <div class="col-xs-4"style="margin-left: 33%">
+                    <button type="submit" class="btn btn-primary btn-block btn-flat">注册</button>
+                </div>
+                <!-- /.col -->
+            </div>
+        </form>
+        <a th:href="@{back1}" style="float: left">返回</a>
+
+    </div>
+    <!-- /.form-box -->
+</div>
+<!-- /.register-box -->
+
+<!-- jQuery 3 -->
+<script src="../bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- iCheck -->
+<script src="../plugins/iCheck/icheck.min.js"></script>
+<script>
+    $(function () {
+        $('input').iCheck({
+            checkboxClass: 'icheckbox_square-blue',
+            radioClass: 'iradio_square-blue',
+            increaseArea: '20%' /* optional */
+        });
+    });
+</script>
+</body>
+</html>
